@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/color/color.dart';
+import '../../../../core/responsive_ui/responsive_ui.dart';
 import '../../../../responsive/responsive.dart';
 
 class UserDetailShowingWidget extends StatelessWidget {
@@ -34,7 +35,9 @@ class UserDetailShowingWidget extends StatelessWidget {
               title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: titleSize ?? Responsive.textMultiplier! * 1.5,
+                fontSize: ResponsiveUi.isDesktop(context)
+                    ? Responsive.textMultiplier! * 1.0
+                    : Responsive.textMultiplier! * 1.8,
               ),
             ),
           ),
@@ -42,12 +45,14 @@ class UserDetailShowingWidget extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Text(
-              maxLines: maxLines ,
-              overflow:overflow ,
+              maxLines: maxLines,
+              overflow: overflow,
               subTitle,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: subTitleSize ?? Responsive.textMultiplier! * 1.5,
+                  fontSize: ResponsiveUi.isDesktop(context)
+                      ? Responsive.textMultiplier! * 1.0
+                      : Responsive.textMultiplier! * 1.8,
                   color: Apc.grey),
             ),
           ),

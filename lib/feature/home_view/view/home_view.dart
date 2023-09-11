@@ -42,7 +42,7 @@ class HomeView extends StatelessWidget {
                           },
                           child: SizedBox(
                             height: 150,
-                            width: Responsive.widthMultiplier! * 60,
+                            width: Responsive.widthMultiplier! * 50,
                             child: Card(
                               elevation: 3,
                               child: Row(
@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
                                   Expanded(
                                       child: CustomContainer(
                                     height: 120,
-                                    width: 50,
+                                    width: 0,
                                     decoration: BoxDecoration(
                                         color: const Color.fromARGB(
                                             255, 0, 162, 146),
@@ -113,6 +113,8 @@ class HomeView extends StatelessWidget {
                                                 "${data?.address?.address} , ${data?.address?.city}",
                                           ),
                                           UserDetailShowingWidget(
+                                             maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                             subTitleSize:
                                                 Responsive.textMultiplier! * 1,
                                             titleSize:
