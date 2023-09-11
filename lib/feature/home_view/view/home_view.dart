@@ -137,56 +137,63 @@ class HomeView extends StatelessWidget {
                   itemCount: userList.myPostList?.length ?? 0,
                   itemBuilder: (context, index) {
                     final data = userList.myPostList?[index];
-                    return SizedBox(
-                      height: 150,
-                      child: Card(
-                        elevation: 3,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Expanded(
-                                child: CachedNetworkImage(
-                              imageUrl: data?.image ?? "",
-                              height: 120,
-                              fit: BoxFit.cover,
-                              errorWidget: (context, url, error) {
-                                return const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CupertinoActivityIndicator(
-                                      color: Apc.grey,
-                                    ), // Show Cupertino activity indicator on error
-                                    SizedBox(height: 10),
-                                    Text('Error loading image'),
-                                  ],
-                                );
-                              },
-                            )),
-                            Expanded(
-                                flex: 2,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    UserDetailShowingWidget(
-                                      title: 'Name',
-                                      subTitle: data?.username ?? "",
-                                    ),
-                                    UserDetailShowingWidget(
-                                      title: 'Age',
-                                      subTitle: data?.age.toString() ?? "",
-                                    ),
-                                    UserDetailShowingWidget(
-                                      title: 'Address',
-                                      subTitle:
-                                          "${data?.address?.address} , ${data?.address?.city}",
-                                    ),
-                                    UserDetailShowingWidget(
-                                      title: 'Company',
-                                      subTitle: data?.company?.name ?? "",
-                                    ),
-                                  ],
-                                ))
-                          ],
+                    return GestureDetector(
+                      onTap: () async {
+                        userList.getUserIndex(index+1);
+
+                        await userList.getAllOverViewObject();
+                      },
+                      child: SizedBox(
+                        height: 150,
+                        child: Card(
+                          elevation: 3,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                  child: CachedNetworkImage(
+                                imageUrl: data?.image ?? "",
+                                height: 120,
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) {
+                                  return const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CupertinoActivityIndicator(
+                                        color: Apc.grey,
+                                      ), // Show Cupertino activity indicator on error
+                                      SizedBox(height: 10),
+                                      Text('Error loading image'),
+                                    ],
+                                  );
+                                },
+                              )),
+                              Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      UserDetailShowingWidget(
+                                        title: 'Name',
+                                        subTitle: data?.username ?? "",
+                                      ),
+                                      UserDetailShowingWidget(
+                                        title: 'Age',
+                                        subTitle: data?.age.toString() ?? "",
+                                      ),
+                                      UserDetailShowingWidget(
+                                        title: 'Address',
+                                        subTitle:
+                                            "${data?.address?.address} , ${data?.address?.city}",
+                                      ),
+                                      UserDetailShowingWidget(
+                                        title: 'Company',
+                                        subTitle: data?.company?.name ?? "",
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          ),
                         ),
                       ),
                     );
