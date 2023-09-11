@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:kochin_machine_test/feature/splash_view/view_model/splash_controller.dart';
 
 import '../feature/home_view/view_model/home_controller.dart';
+import '../feature/overview_page/view_model/over_view_controller.dart';
 
 class ProviderApp extends StatelessWidget {
   final Widget child;
@@ -17,6 +18,9 @@ class ProviderApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => HomeController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OverViewController(),
         ),
       ],
       child: child,

@@ -6,6 +6,7 @@ import 'package:kochin_machine_test/core/color/color.dart';
 import 'package:kochin_machine_test/core/custom_container/container.dart';
 import 'package:kochin_machine_test/feature/home_view/view/widget/user_details_displaying.dart';
 import 'package:kochin_machine_test/feature/home_view/view_model/home_controller.dart';
+import 'package:kochin_machine_test/feature/overview_page/view_model/over_view_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/responsive_ui/responsive_ui.dart';
@@ -139,9 +140,12 @@ class HomeView extends StatelessWidget {
                     final data = userList.myPostList?[index];
                     return GestureDetector(
                       onTap: () async {
-                        userList.getUserIndex(index+1);
-
-                        await userList.getAllOverViewObject();
+                        context
+                            .read<OverViewController>()
+                            .getUserIndex(index + 1);
+                        await context
+                            .read<OverViewController>()
+                            .getAllOverViewObject();
                       },
                       child: SizedBox(
                         height: 150,
