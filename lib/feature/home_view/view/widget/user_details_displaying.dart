@@ -6,16 +6,22 @@ import '../../../../responsive/responsive.dart';
 class UserDetailShowingWidget extends StatelessWidget {
   final String title;
   final String subTitle;
+  final double? titleSize;
+  final double? subTitleSize;
+  final double? size;
   const UserDetailShowingWidget({
     super.key,
     required this.title,
     required this.subTitle,
+    this.titleSize,
+    this.subTitleSize,
+    this.size,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(size ?? 8),
       child: Row(
         children: [
           Expanded(
@@ -24,8 +30,9 @@ class UserDetailShowingWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               title,
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: Responsive.textMultiplier! * 2),
+                fontWeight: FontWeight.bold,
+                fontSize: titleSize ?? Responsive.textMultiplier! * 2,
+              ),
             ),
           ),
           const Expanded(child: Text("  : ")),
@@ -37,7 +44,7 @@ class UserDetailShowingWidget extends StatelessWidget {
               subTitle,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: Responsive.textMultiplier! * 2,
+                  fontSize: subTitleSize ?? Responsive.textMultiplier! * 2,
                   color: Apc.grey),
             ),
           ),
