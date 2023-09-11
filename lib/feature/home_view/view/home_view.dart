@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kochin_machine_test/core/color/color.dart';
+import 'package:kochin_machine_test/core/custom_container/container.dart';
 import 'package:kochin_machine_test/feature/home_view/view/widget/user_details_displaying.dart';
 import 'package:kochin_machine_test/feature/home_view/view_model/home_controller.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +23,23 @@ class HomeView extends StatelessWidget {
       body: Consumer<HomeController>(
         builder: (context, userList, _) {
           return kIsWeb && ResponsiveUi.isDesktop(context)
-              ? Container(
-                  color: Apc.gold,
-                  height: 50,
-                  width: 800,
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: CustomContainer(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        color: Apc.red,
+                      ),
+                    ),
+                    Expanded(
+                      child: CustomContainer(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        color: Apc.orange,
+                      ),
+                    ),
+                  ],
                 )
               : ListView.builder(
                   shrinkWrap: true,
@@ -62,19 +76,20 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     UserDetailShowingWidget(
                                       title: 'Name',
-                                      subTitle: data?.username??"",
+                                      subTitle: data?.username ?? "",
                                     ),
-                                     UserDetailShowingWidget(
+                                    UserDetailShowingWidget(
                                       title: 'Age',
-                                      subTitle: data?.age.toString()??"",
+                                      subTitle: data?.age.toString() ?? "",
                                     ),
-                                     UserDetailShowingWidget(
+                                    UserDetailShowingWidget(
                                       title: 'Address',
-                                      subTitle: "${data?.address?.address} , ${data?.address?.city}",
+                                      subTitle:
+                                          "${data?.address?.address} , ${data?.address?.city}",
                                     ),
-                                     UserDetailShowingWidget(
+                                    UserDetailShowingWidget(
                                       title: 'Company',
-                                      subTitle: data?.company?.name??"",
+                                      subTitle: data?.company?.name ?? "",
                                     ),
                                   ],
                                 ))
