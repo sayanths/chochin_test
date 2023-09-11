@@ -16,7 +16,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
+
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 0, 122, 138),
       ),
@@ -36,7 +38,7 @@ class HomeView extends StatelessWidget {
                       child: CustomContainer(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
-                        color: Apc.orange,
+                        color: Apc.white,
                       ),
                     ),
                   ],
