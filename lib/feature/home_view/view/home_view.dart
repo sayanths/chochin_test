@@ -7,7 +7,6 @@ import 'package:kochin_machine_test/core/custom_container/container.dart';
 import 'package:kochin_machine_test/feature/home_view/view/widget/user_details_displaying.dart';
 import 'package:kochin_machine_test/feature/home_view/view_model/home_controller.dart';
 import 'package:kochin_machine_test/feature/overview_page/view_model/over_view_controller.dart';
-import 'package:kochin_machine_test/routes/routes.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/responsive_ui/responsive_ui.dart';
@@ -20,6 +19,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Apc.primary,
         elevation: 0,
       ),
       body: Consumer<HomeController>(
@@ -99,6 +99,8 @@ class HomeView extends StatelessWidget {
                                                   data?.age.toString() ?? "",
                                             ),
                                             UserDetailShowingWidget(
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                               subTitleSize:
                                                   Responsive.textMultiplier! *
                                                       1,
@@ -147,7 +149,6 @@ class HomeView extends StatelessWidget {
                         await context
                             .read<OverViewController>()
                             .getAllOverViewObject();
-                       
                       },
                       child: SizedBox(
                         height: 150,
@@ -157,22 +158,31 @@ class HomeView extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Expanded(
-                                  child: CachedNetworkImage(
-                                imageUrl: data?.image ?? "",
+                                  child: CustomContainer(
                                 height: 120,
-                                fit: BoxFit.cover,
-                                errorWidget: (context, url, error) {
-                                  return const Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CupertinoActivityIndicator(
-                                        color: Apc.grey,
-                                      ), // Show Cupertino activity indicator on error
-                                      SizedBox(height: 10),
-                                      Text('Error loading image'),
-                                    ],
-                                  );
-                                },
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(255, 0, 162, 146),
+                                    borderRadius: BorderRadius.circular(6)),
+                                child: CachedNetworkImage(
+                                  imageUrl: data?.image ?? "",
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) {
+                                    return const Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CupertinoActivityIndicator(
+                                          color: Apc.grey,
+                                        ), // Show Cupertino activity indicator on error
+                                        SizedBox(height: 10),
+                                        Text('Error loading image'),
+                                      ],
+                                    );
+                                  },
+                                ),
                               )),
                               Expanded(
                                   flex: 2,
@@ -188,11 +198,15 @@ class HomeView extends StatelessWidget {
                                         subTitle: data?.age.toString() ?? "",
                                       ),
                                       UserDetailShowingWidget(
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         title: 'Address',
                                         subTitle:
                                             "${data?.address?.address} , ${data?.address?.city}",
                                       ),
                                       UserDetailShowingWidget(
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         title: 'Company',
                                         subTitle: data?.company?.name ?? "",
                                       ),
