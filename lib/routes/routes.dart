@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:kochin_machine_test/feature/login_view/view/login_view.dart';
+import 'package:kochin_machine_test/feature/home_view/view/home_view.dart';
 
 class Routes {
   static final routeKey = GlobalKey<NavigatorState>();
 
   Map<String, Widget Function(BuildContext)> route = {
-    "/loginView": (context) => const LoginView()
+    "/homeView": (context) => const HomeView()
   };
 
   static push({required var screen}) {
