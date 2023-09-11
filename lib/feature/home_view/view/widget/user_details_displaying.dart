@@ -9,14 +9,17 @@ class UserDetailShowingWidget extends StatelessWidget {
   final double? titleSize;
   final double? subTitleSize;
   final double? size;
-  const UserDetailShowingWidget({
-    super.key,
-    required this.title,
-    required this.subTitle,
-    this.titleSize,
-    this.subTitleSize,
-    this.size,
-  });
+  final int? maxLines;
+  final TextOverflow? overflow;
+  const UserDetailShowingWidget(
+      {super.key,
+      required this.title,
+      required this.subTitle,
+      this.titleSize,
+      this.subTitleSize,
+      this.size,
+      this.maxLines,
+      this.overflow});
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +42,8 @@ class UserDetailShowingWidget extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Text(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              maxLines: maxLines ,
+              overflow:overflow ,
               subTitle,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
