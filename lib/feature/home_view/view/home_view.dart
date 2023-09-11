@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:kochin_machine_test/core/color/color.dart';
 import 'package:kochin_machine_test/feature/home_view/view_model/home_controller.dart';
 import 'package:provider/provider.dart';
+
+import '../../../core/responsive_ui/responsive_ui.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -15,7 +19,13 @@ class HomeView extends StatelessWidget {
       ),
       body: Consumer<HomeController>(
         builder: (context, userList, _) {
-          return ListView.builder(
+          return kIsWeb && ResponsiveUi.isDesktop(context)
+          ? Container(
+            color: Apc.gold,
+            height: 50,
+            width: 800,
+          )
+         : ListView.builder(
             shrinkWrap: true,
             itemCount: userList.myPostList?.length ?? 0,
             itemBuilder: (context, index) {
@@ -36,7 +46,7 @@ class HomeView extends StatelessWidget {
                       ),
                       const Expanded(child:Column(
                         children: [
-                          
+
                         ],
                       ))
                     ],
