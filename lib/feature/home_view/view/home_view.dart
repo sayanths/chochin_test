@@ -7,6 +7,7 @@ import 'package:kochin_machine_test/core/custom_container/container.dart';
 import 'package:kochin_machine_test/feature/home_view/view/widget/user_details_displaying.dart';
 import 'package:kochin_machine_test/feature/home_view/view_model/home_controller.dart';
 import 'package:kochin_machine_test/feature/overview_page/view_model/over_view_controller.dart';
+import 'package:kochin_machine_test/routes/routes.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/responsive_ui/responsive_ui.dart';
@@ -146,6 +147,7 @@ class HomeView extends StatelessWidget {
                         await context
                             .read<OverViewController>()
                             .getAllOverViewObject();
+                       
                       },
                       child: SizedBox(
                         height: 150,

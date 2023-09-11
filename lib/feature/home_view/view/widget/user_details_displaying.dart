@@ -21,7 +21,7 @@ class UserDetailShowingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(size ?? 8),
+      padding: EdgeInsets.all(size ?? 6),
       child: Row(
         children: [
           Expanded(
@@ -31,20 +31,20 @@ class UserDetailShowingWidget extends StatelessWidget {
               title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: titleSize ?? Responsive.textMultiplier! * 2,
+                fontSize: titleSize ?? Responsive.textMultiplier! * 1.5,
               ),
             ),
           ),
-          const Expanded(child: Text("  : ")),
+          const Flexible(child: Text("  :   ")),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Text(
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               subTitle,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: subTitleSize ?? Responsive.textMultiplier! * 2,
+                  fontSize: subTitleSize ?? Responsive.textMultiplier! * 1.5,
                   color: Apc.grey),
             ),
           ),
