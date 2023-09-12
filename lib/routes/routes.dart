@@ -7,7 +7,7 @@ class Routes {
   static final routeKey = GlobalKey<NavigatorState>();
 
   Map<String, Widget Function(BuildContext)> route = {
-    "/homeView": (context) => MyHomePage(),
+    "/homeView": (context) => const HomeView(),
     "/OverViewPage": (context) => const OverViewPage(),
   };
 

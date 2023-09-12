@@ -17,7 +17,7 @@ class ProviderApp extends StatelessWidget {
           create: (context) => SplashController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => HomeController(),
+          create: (context) => UserProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => OverViewController(),

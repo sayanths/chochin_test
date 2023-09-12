@@ -1,38 +1,49 @@
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:kochin_machine_test/core/asset_url/repository.dart';
 import 'package:kochin_machine_test/feature/home_view/model/user_model.dart';
+import 'package:http/http.dart' as http;
 
-class HomeController extends ChangeNotifier {
-  HomeController() {
-    getAllUserList();
+class UserProvider with ChangeNotifier {
+  UserProvider() {
+    fetchData();
   }
+  final List<User> _dataList = [];
+  int _currentPage = 1;
+  bool _isLoading = false;
+  bool _hasMore = true;
 
-  List<User>? myPostList = [];
-  bool isLoadingData = false;
-  bool hasMoreData = true;
+  List<User> get dataList => _dataList;
+  bool get isLoading => _isLoading;
+  bool get hasMore => _hasMore;
 
-  Future<void> getAllUserList() async {
-    if (!isLoadingData && hasMoreData) {
-      isLoadingData = true;
-      notifyListeners();
-      await Future.delayed(const Duration(seconds: 1));
-      List response =
-          await BaseClient.get('https://dummyjson.com/users?limit=100&skip=0');
-      myPostList?.clear();
-      if (response.isEmpty) {
-        hasMoreData = false;
-        notifyListeners();
+  Future<void> fetchData() async {
+    if (_isLoading || !_hasMore) return;
+
+    _isLoading = true;
+    notifyListeners();
+
+    final response = await http.get(Uri.parse(
+        'https://dummyjson.com/users?limit=20&skip=${(_currentPage - 1) * 5}'));
+
+    _isLoading = false;
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data.containsKey('users') && data['users'] is List) {
+        final users = data['users'];
+        if (users.isNotEmpty) {
+          _dataList.addAll(
+              users.map((userData) => User.fromJson(userData)).cast<User>());
+          _currentPage++;
+        } else {
+          _hasMore = false;
+        }
+      } else {
+        // Handle the case where 'users' key is missing or not a list
       }
-      if (response[0] >= 200 && response[0] < 300) {
-        myPostList?.clear();
-        final data = UserModel.fromJson(response[1]);
-        myPostList?.addAll(data.users ?? []);
-        isLoadingData = false;
-        notifyListeners();
-        log("${myPostList.toString()}==========");
-      }
+    } else {
+      // Handle error here
     }
 
     notifyListeners();
