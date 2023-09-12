@@ -9,7 +9,7 @@ class UserProvider with ChangeNotifier {
     fetchData();
   }
   final List<User> _dataList = [];
-  int _currentPage = 1;
+  int currentPage = 1;
   bool _isLoading = false;
   bool _hasMore = true;
 
@@ -24,7 +24,7 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
 
     final response = await http.get(Uri.parse(
-        'https://dummyjson.com/users?limit=20&skip=${(_currentPage - 1) * 5}'));
+        'https://dummyjson.com/users?limit=100&skip=${(currentPage - 1) * 5}'));
 
     _isLoading = false;
 
@@ -35,7 +35,7 @@ class UserProvider with ChangeNotifier {
         if (users.isNotEmpty) {
           _dataList.addAll(
               users.map((userData) => User.fromJson(userData)).cast<User>());
-          _currentPage++;
+          currentPage++;
         } else {
           _hasMore = false;
         }
@@ -46,6 +46,22 @@ class UserProvider with ChangeNotifier {
       // Handle error here
     }
 
+    notifyListeners();
+  }
+
+  int get totalPages {
+    const itemsPerPage =
+        5; // Adjust this based on the number of items you want per page
+    final totalItems = _dataList.length;
+    return (totalItems / itemsPerPage).ceil();
+  }
+
+  int _selectedPageNumber = 1;
+
+  int get selectedPageNumber => _selectedPageNumber;
+
+  void setSelectedPageNumber(int pageNumber) {
+    _selectedPageNumber = pageNumber;
     notifyListeners();
   }
 }

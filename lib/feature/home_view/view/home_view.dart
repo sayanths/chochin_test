@@ -6,6 +6,7 @@ import 'package:kochin_machine_test/feature/home_view/view/widget/mobile_view.da
 
 import 'package:kochin_machine_test/feature/home_view/view/widget/user_details_displaying.dart';
 import 'package:kochin_machine_test/feature/home_view/view_model/home_controller.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 import '../../../core/color/color.dart';
 
@@ -107,8 +108,7 @@ class HomeView extends StatelessWidget {
                                                       1,
                                               size: 5,
                                               title: 'Age',
-                                              subTitle:
-                                                  data.age.toString() ?? "",
+                                              subTitle: data.age.toString(),
                                             ),
                                             UserDetailShowingWidget(
                                               maxLines: 1,
@@ -158,9 +158,46 @@ class HomeView extends StatelessWidget {
                   color: Apc.fadeGrey.withOpacity(0.3),
                   child: const Center(child: CircularProgressIndicator()),
                 )
-              : const SizedBox()
+              : const SizedBox(),
+          kIsWeb && ResponsiveUi.isDesktop(context)
+              ? Consumer<UserProvider>(
+                  builder: (context, value, _) => Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CustomPagination(
+                        currentPage: value.selectedPageNumber,
+                        totalPages: value.totalPages,
+                        onPageChanged: (int pageNumber) {
+                          value.setSelectedPageNumber(pageNumber);
+                        },
+                      )),
+                )
+              : const SizedBox(),
         ],
       ),
+    );
+  }
+}
+
+class CustomPagination extends StatelessWidget {
+  final int currentPage;
+  final int totalPages;
+  final ValueChanged<int> onPageChanged;
+
+  const CustomPagination({
+    super.key,
+    required this.currentPage,
+    required this.totalPages,
+    required this.onPageChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return NumberPagination(
+      onPageChanged: onPageChanged,
+      pageTotal: totalPages,
+      pageInit: currentPage,
+      colorPrimary: const Color.fromARGB(255, 236, 234, 234),
+      colorSub: const Color.fromARGB(255, 181, 11, 111),
     );
   }
 }
